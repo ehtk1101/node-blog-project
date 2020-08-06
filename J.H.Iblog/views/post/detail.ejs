@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+  <body>
+    <%- include("../menu"); %>
+
+    <!-- 상세조회 -->
+    <!-- Material input -->
+    <div class="md-form">
+      <input
+        type="text"
+        id="form1"
+        class="form-control texttitle"
+        value="<%= result.title %>"
+        readonly
+      />
+    </div>
+
+    <div class="md-form centerbox">
+      <p type="text" id="form1" class="form-control textbox">
+        <%= result.contents %>
+      </p>
+    </div>
+    <div class="buttonline">
+      <% if(user.role ===1) { %>
+      <button
+        onclick="location.href='/api/post/<%= result._id%>/edit'"
+        type="submit"
+        class="btn btn-dark"
+      >
+        수정
+      </button>
+      <button id="deleteBtn" type="submit" class="btn btn-dark">삭제</button>
+      <% } %>
+    </div>
+
+    <%- include("../footer"); %>
+
+    <script>
+      $(function () {
+        $("#deleteBtn").on("click", () => {
+          const result = confirm("삭제하시겠습니까?");
+          if (result) {
+            // 삭제
+            $.ajax({
+              url: "/api/post/<%= result._id %>",
+              type: "DELETE",
+            })
+              .done(() => {
+                location.href = "/api/post";
+              })
+              .fail((request, status, error) => {
+                alert(request.responseText);
+              });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

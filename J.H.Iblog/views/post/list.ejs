@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+  <body>
+    <%- include("../menu"); %>
+    <!-- 목록조회 -->
+    <div class="row row-cols-1 row-cols-md-3">
+      <% result.forEach(post => { %>
+      <div class="col mb-4">
+        <!-- Card -->
+        <div class="card">
+          <!--Card content-->
+          <div class="card-body">
+            <!--Title-->
+            <h4 class="card-title"><%= post.title %></h4>
+            <!--Text-->
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+            <button
+              type="button"
+              class="btn btn-dark btn-md"
+              onclick="location.href='/api/post/<%= post._id%>'"
+            >
+              Read More
+            </button>
+          </div>
+        </div>
+        <!-- Card -->
+      </div>
+      <% }); %>
+    </div>
+    <%- include("../footer"); %>
+  </body>
+</html>

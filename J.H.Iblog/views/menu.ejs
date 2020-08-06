@@ -1,0 +1,37 @@
+<nav>
+  <div class="nav-title">
+    <a href="/">J.H.I BLOG</a>
+  </div>
+  <div class="nav-component">
+    <ul class="navul">
+      <li class="navli">
+        <a href="/">MAIN</a>
+      </li>
+      <li class="navli">
+        <a href="/api/post">POST</a>
+      </li>
+      <li class="navli">
+        <a href="/api/profile">PROFILE</a>
+      </li>
+
+      <% if (user === null) { %>
+      <li class="navli">
+        <a href="/api/user/login">LOGIN</a>
+      </li>
+      <li class="navli">
+        <a href="/api/user/signup">Sign Up</a>
+      </li>
+      <% } else { %> <% if (user.role === 1) { %> <% if(url === "/api/post") {
+      %>
+      <li type="button" class="navli" onclick="location.href='/api/post/new'">
+        New Post
+      </li>
+      <% } %> <% } %>
+
+      <li class="navli">
+        <a href="/api/user/logout">LOGOUT</a>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+</nav>

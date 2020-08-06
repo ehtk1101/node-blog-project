@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+  <body>
+    <%- include("../menu"); %>
+
+    <form id="updateForm">
+      <!-- Material input -->
+      <div class="md-form">
+        <input
+          type="text"
+          id="title"
+          class="form-control"
+          value="<%= result.title %>"
+          required
+        />
+      </div>
+
+      <div class="md-form">
+        <textarea
+          type="text"
+          id="contents"
+          class="form-control"
+          required
+          rows="18"
+        >
+<%= result.contents %></textarea
+        >
+      </div>
+
+      <button type="submit" class="btn btn-dark">
+        저장
+      </button>
+    </form>
+    <%- include("../footer"); %>
+
+    <script>
+      $(function () {
+        $("#updateForm").submit((event) => {
+          //수정
+          event.preventDefault();
+
+          const title = $("#title").val();
+          const contents = $("#contents").val();
+
+          $.ajax({
+            url: "/api/post/<%= result._id %>",
+            type: "PUT",
+            data: { title, contents },
+          })
+            .done(() => {
+              location.href = "/api/post/<%= result._id %>";
+            })
+            .fail((request, status, error) => {
+              alert(request.responseText);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>
